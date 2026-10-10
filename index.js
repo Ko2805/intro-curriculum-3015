@@ -11,23 +11,7 @@ const server = http
 
     switch (req.method) {
       case 'GET':
-        if (req.url === '/enquetes/yaki-tofu') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: '焼き肉',
-              secondItem: '湯豆腐'
-            })
-          );
-        } else if (req.url === '/enquetes/rice-bread') {
-          res.write(
-            pug.renderFile('./form.pug', {
-              path: req.url,
-              firstItem: 'ごはん',
-              secondItem: 'パン'
-            })
-          );
-        }
+        res.write(pug.renderFile('./form.pug'));
         res.end();
         break;
       case 'POST':
@@ -38,7 +22,7 @@ const server = http
           })
           .on('end', () => {
             const answer = new URLSearchParams(rawData);
-            const body = `${answer.get('name')}さんは${answer.get('favorite')}に投票しました`;
+            const body = `${answer.get('name')}さんは${answer.get('yaki-tofu')}に投票しました`;
             console.info(`[${now}] ${body}`);
             res.write(
               `<!DOCTYPE html><html lang="ja"><body><h1>${body}</h1></body></html>`
